@@ -58,6 +58,9 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() 
     {
         BasicMovement(_horizontalInput);
+
+        if (IsGrounded())
+            _lastWall = null;
     }
 
     private bool CheckIfInControl()
@@ -70,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         _canGrabWall = IsOnWall();
         _isGrabbingWall = false;
 
-        if (_canGrabWall && !IsGrounded())
+        if (_canGrabWall && !IsGrounded() && _lastWall != _wallHit.collider.GetComponent<BoxCollider2D>())
         {
             // TODO check if this entire line is really necessary
             _isGrabbingWall = (transform.localScale.x > 0 && _horizontalInput > 0) || (transform.localScale.x < 0 && _horizontalInput < 0);
@@ -82,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
             _body.velocity = Vector2.zero;
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                _lastWall = _wallHit.collider.GetComponent<BoxCollider2D>();
                 _wallJumpCounter = _wallJumpTime;
                 _isInControl = false;
                 _body.gravityScale = _initialGravity;
