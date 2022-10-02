@@ -4,8 +4,11 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private PlayerController _input;
+
     private Rigidbody2D _body;
     private PlayerGround _ground;
+    private PlayerMoveLimit _moveLimit;
 
     [Header("Movement Stats")]
     [SerializeField, Range(0f, 20f)] [Tooltip("Maximum movement speed")] private float _maxSpeed = 10f;
@@ -15,15 +18,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)] [Tooltip("How fast to reach max speed when in mid-air")] private float _maxAirAcceleration;
     [SerializeField, Range(0f, 100f)] [Tooltip("How fast to stop in mid-air when no direction is used")] private float _maxAirDeceleration;
     [SerializeField, Range(0f, 100f)] [Tooltip("How fast to stop when changing direction when in mid-air")] private float _maxAirTurnSpeed = 80f;
-    [SerializeField] [Tooltip("Friction to apply against movement on stick")] private float _friction;
 
     [SerializeField] [Tooltip("When false, the charcter will skip acceleration and deceleration and instantly move and stop")] private bool _useAcceleration;
-    [SerializeField] private bool _canMove = true;
 
     private Vector2 _desiredVelocity;
     private Vector2 _velocity;
+    private Vector2 _moveInput;
 
-    private float _directionX;
     private float _maxSpeedChange;
     private float _acceleration;
     private float _deceleration;
@@ -36,20 +37,38 @@ public class PlayerMovement : MonoBehaviour
     {
         _body = GetComponent<Rigidbody2D>();
         _ground = GetComponent<PlayerGround>();
+        _moveLimit = GetComponent<PlayerMoveLimit>();
+    }
+
+    private void OnEnable()
+    {
+        if (_input == null)
+        {
+            _input = new PlayerController();
+
+            _input.Movement.Move.performed += _input => _moveInput = _input.ReadValue<Vector2>();
+        }
+
+        _input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _input.Disable();
     }
 
     private void Update()
     {
         // Used to stop movement when the character is playing the death animation
-        if (!_canMove)
+        if (!_moveLimit.CanMove)
         {
-            _directionX = 0f;
+            _moveInput.x = 0f;
         }
 
         // Used to flip characters sprite
-        if (_directionX != 0f)
+        if (_moveInput.x != 0f)
         {
-            transform.localScale = new Vector3(_directionX > 0 ? 1 : -1, 1, 1);
+            transform.localScale = new Vector3(_moveInput.x > 0 ? 1 : -1, 1, 1);
             _pressingKey = true;
         }
         else
@@ -58,8 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Calculate characters desired velocity
-        // TODO apply friction
-        _desiredVelocity = new Vector2(_directionX, 0f) * Mathf.Max(_maxSpeed - _friction, 0f);
+        _desiredVelocity = new Vector2(_moveInput.x, 0f) * Mathf.Max(_maxSpeed - _ground.Friction, 0f);
     }
 
     private void FixedUpdate()
@@ -88,9 +106,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (_canMove)
+        if (_moveLimit.CanMove)
         {
-            _directionX = context.ReadValue<float>();
+            _moveInput = context.ReadValue<Vector2>();
         }
     }
 
@@ -103,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         if (_pressingKey)
         {
             // If the sign of our input direction doesn't match our movement, it means we're turning aroung and so should be using the turn speed stat
-            if (Mathf.Sign(_directionX) != Mathf.Sign(_velocity.x))
+            if (Mathf.Sign(_moveInput.x) != Mathf.Sign(_velocity.x))
             {
                 _maxSpeedChange = _turnSpeed * delta;
             }
