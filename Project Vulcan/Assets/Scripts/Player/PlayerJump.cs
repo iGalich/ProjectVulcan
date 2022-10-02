@@ -3,15 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerJump : MonoBehaviour
 {
-    #region Components
-
-    private Rigidbody2D _body;
-    private PlayerGround _ground;
-    private PlayerJuice _juice;
-    private PlayerMoveLimit _moveLimit;
-
-    #endregion
-
     [Header("Jump Stats")]
     [SerializeField, Range(2f, 5.5f)] [Tooltip("Max jump height")] private float _jumpHeight = 7.3f;
     [SerializeField, Range(0.2f, 1.25f)] [Tooltip("How long it takes to reach max height before coming down")] private float _timeToJumpApex;
@@ -38,11 +29,6 @@ public class PlayerJump : MonoBehaviour
 
     private void Awake()
     {
-        _body = GetComponent<Rigidbody2D>();
-        _ground = GetComponent<PlayerGround>();
-        _juice = GetComponent<PlayerJuice>();
-        _moveLimit = GetComponent<PlayerMoveLimit>();
-
         _defaultGravityScale = 1f;
     }
 
@@ -52,7 +38,7 @@ public class PlayerJump : MonoBehaviour
 
         SetPhysics();
 
-        _onGround = _ground.OnGround;
+        _onGround = Player.Instance.Ground.OnGround;
 
         if (_jumpBuffer > 0f)
         {
@@ -80,12 +66,12 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _velocity = _body.velocity;
+        _velocity = Player.Instance.Body.velocity;
 
         if (_desiresJump)
         {
             PerformJump();
-            _body.velocity = _velocity;
+            Player.Instance.Body.velocity = _velocity;
             return;
         }
 
@@ -94,7 +80,7 @@ public class PlayerJump : MonoBehaviour
 
     private void CalculateGravity()
     {
-        if (_body.velocity.y > 0.01f)
+        if (Player.Instance.Body.velocity.y > 0.01f)
         {
             if (_onGround)
             {
@@ -112,7 +98,7 @@ public class PlayerJump : MonoBehaviour
                 }
             }
         }
-        else if (_body.velocity.y < -0.01f)
+        else if (Player.Instance.Body.velocity.y < -0.01f)
         {
             if (_onGround)
             {
@@ -133,7 +119,7 @@ public class PlayerJump : MonoBehaviour
             _gravityMultiplier = _defaultGravityScale;
         }
 
-        _body.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -_speedLimit, 100f));
+        Player.Instance.Body.velocity = new Vector3(_velocity.x, Mathf.Clamp(_velocity.y, -_speedLimit, 100f));
     }
 
     private void PerformJump()
@@ -145,7 +131,7 @@ public class PlayerJump : MonoBehaviour
             _coyoteTimeCounter = 0f;
 
             _canJumpAgain = (_maxAirJumps == 1 && !_canJumpAgain);
-            _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * _body.gravityScale * _jumpHeight);
+            _jumpSpeed = Mathf.Sqrt(-2f * Physics2D.gravity.y * Player.Instance.Body.gravityScale * _jumpHeight);
 
             if (_velocity.y > 0f)
             {
@@ -153,15 +139,15 @@ public class PlayerJump : MonoBehaviour
             }
             else if (_velocity.y < 0f)
             {
-                _jumpSpeed += Mathf.Abs(_body.velocity.y);
+                _jumpSpeed += Mathf.Abs(Player.Instance.Body.velocity.y);
             }
 
             _velocity.y += _jumpSpeed;
             _isJumping = true;
 
-            if (_juice != null)
+            if (Player.Instance.Juice != null)
             {
-                _juice.JumpEffects();
+                Player.Instance.Juice.JumpEffects();
             }
         }
 
@@ -173,12 +159,12 @@ public class PlayerJump : MonoBehaviour
 
     public void BounceUp(float amount)
     {
-        _body.AddForce(Vector2.up * amount, ForceMode2D.Impulse);
+        Player.Instance.Body.AddForce(Vector2.up * amount, ForceMode2D.Impulse);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (_moveLimit.CanMove)
+        if (Player.Instance.CanMove)
         {
             if (context.started)
             {
@@ -196,6 +182,6 @@ public class PlayerJump : MonoBehaviour
     private void SetPhysics()
     {
         Vector2 newGravity = new Vector2(0f, (-2f * _jumpHeight) / Mathf.Pow(_timeToJumpApex, 2));
-        _body.gravityScale = (newGravity.y / Physics2D.gravity.y) * _gravityMultiplier;
+        Player.Instance.Body.gravityScale = (newGravity.y / Physics2D.gravity.y) * _gravityMultiplier;
     }
 }

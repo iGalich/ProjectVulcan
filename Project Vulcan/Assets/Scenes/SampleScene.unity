@@ -136,12 +136,13 @@ GameObject:
   - component: {fileID: 64539685}
   - component: {fileID: 64539689}
   - component: {fileID: 64539691}
-  - component: {fileID: 64539692}
   - component: {fileID: 64539697}
   - component: {fileID: 64539696}
   - component: {fileID: 64539695}
   - component: {fileID: 64539694}
   - component: {fileID: 64539693}
+  - component: {fileID: 64539699}
+  - component: {fileID: 64539700}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -333,7 +334,103 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &64539692
+--- !u!114 &64539693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e773045c8d6b3194b87f606ff49caaec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpHeight: 3
+  _timeToJumpApex: 0.5
+  _upwardMoveMulti: 1
+  _downwardMoveMulti: 1
+  _maxAirJumps: 0
+  _jumpCutOff: 3
+  _speedLimit: 20
+  _coyoteTime: 0.15
+  _jumpBuffer: 0.15
+--- !u!114 &64539694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41d42e760731f3429a10e566086a7f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &64539695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76f7e0292b7ec04c93966bdd26011d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundLength: 0.95
+  _colliderOffset: {x: 0.15, y: 0.15, z: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &64539696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c27fd209918e24581f2eefd66ce830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canMove: 1
+--- !u!114 &64539697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1de6d159e19bad42a99c68cb04cc8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 17
+  _maxAcceleration: 10
+  _maxDecceleration: 18
+  _maxTurnSpeed: 26
+  _maxAirAcceleration: 12
+  _maxAirDeceleration: 3
+  _maxAirTurnSpeed: 12
+  _useAcceleration: 1
+--- !u!114 &64539699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7faea57cd34d6fb48a04db7cca683621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canMove: 1
+--- !u!114 &64539700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,92 +533,9 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Movement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &64539693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e773045c8d6b3194b87f606ff49caaec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpHeight: 3
-  _timeToJumpApex: 0.5
-  _upwardMoveMulti: 1
-  _downwardMoveMulti: 1
-  _maxAirJumps: 0
-  _jumpCutOff: 3
-  _speedLimit: 20
-  _coyoteTime: 0.15
-  _jumpBuffer: 0.15
---- !u!114 &64539694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a41d42e760731f3429a10e566086a7f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &64539695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76f7e0292b7ec04c93966bdd26011d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundLength: 0.95
-  _colliderOffset: {x: 0.15, y: 0.15, z: 0}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &64539696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c27fd209918e24581f2eefd66ce830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canMove: 1
---- !u!114 &64539697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1de6d159e19bad42a99c68cb04cc8c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSpeed: 17
-  _maxAcceleration: 10
-  _maxDecceleration: 18
-  _maxTurnSpeed: 26
-  _maxAirAcceleration: 12
-  _maxAirDeceleration: 3
-  _maxAirTurnSpeed: 12
-  _useAcceleration: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

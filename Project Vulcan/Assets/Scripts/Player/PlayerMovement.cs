@@ -4,12 +4,6 @@ using UnityEngine.InputSystem.Interactions;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerController _input;
-
-    private Rigidbody2D _body;
-    private PlayerGround _ground;
-    private PlayerMoveLimit _moveLimit;
-
     [Header("Movement Stats")]
     [SerializeField, Range(0f, 20f)] [Tooltip("Maximum movement speed")] private float _maxSpeed = 10f;
     [SerializeField, Range(0f, 100f)] [Tooltip("How fast to reach max speed")] private float _maxAcceleration = 52f;
@@ -33,34 +27,12 @@ public class PlayerMovement : MonoBehaviour
     private bool _onGround;
     private bool _pressingKey;
 
-    private void Awake()
-    {
-        _body = GetComponent<Rigidbody2D>();
-        _ground = GetComponent<PlayerGround>();
-        _moveLimit = GetComponent<PlayerMoveLimit>();
-    }
-
-    private void OnEnable()
-    {
-        if (_input == null)
-        {
-            _input = new PlayerController();
-
-            _input.Movement.Move.performed += _input => _moveInput = _input.ReadValue<Vector2>();
-        }
-
-        _input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _input.Disable();
-    }
+    public Vector2 MoveInput { get => _moveInput; set => _moveInput = value; }
 
     private void Update()
     {
         // Used to stop movement when the character is playing the death animation
-        if (!_moveLimit.CanMove)
+        if (!Player.Instance.CanMove)
         {
             _moveInput.x = 0f;
         }
@@ -77,15 +49,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Calculate characters desired velocity
-        _desiredVelocity = new Vector2(_moveInput.x, 0f) * Mathf.Max(_maxSpeed - _ground.Friction, 0f);
+        _desiredVelocity = new Vector2(_moveInput.x, 0f) * Mathf.Max(_maxSpeed - Player.Instance.Ground.Friction, 0f);
     }
 
     private void FixedUpdate()
     {
         float delta = Time.deltaTime;
 
-        _onGround = _ground.OnGround;
-        _velocity = _body.velocity;
+        _onGround = Player.Instance.Ground.OnGround;
+        _velocity = Player.Instance.Body.velocity;
 
         if (_useAcceleration)
         {
@@ -106,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (_moveLimit.CanMove)
+        if (Player.Instance.CanMove)
         {
             _moveInput = context.ReadValue<Vector2>();
         }
@@ -136,12 +108,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _velocity.x = Mathf.MoveTowards(_velocity.x, _desiredVelocity.x, _maxSpeedChange);
-        _body.velocity = _velocity;
+        Player.Instance.Body.velocity = _velocity;
     }
 
     private void RunWithoutAcceleration()
     {
         _velocity.x = _desiredVelocity.x;
-        _body.velocity = _velocity;
+        Player.Instance.Body.velocity = _velocity;
     }
 }

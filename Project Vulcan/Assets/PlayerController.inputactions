@@ -2,7 +2,7 @@
     "name": "PlayerController",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Player",
             "id": "ebb60a54-8c2e-4150-aeab-9b641d5ee195",
             "actions": [
                 {
