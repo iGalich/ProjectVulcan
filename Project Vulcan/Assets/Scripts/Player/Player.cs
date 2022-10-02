@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private PlayerGround _ground;
     private PlayerJuice _juice;
     private PlayerJump _playerJump;
+    private PlayerDash _playerDash;
 
     #endregion
 
@@ -20,8 +21,10 @@ public class Player : MonoBehaviour
 
     public PlayerController PlayerInput => _playerInput;
     public Rigidbody2D Body { get => _body; set => _body = value; }
+    public PlayerMovement Movement => _movement;
     public PlayerGround Ground => _ground;
     public PlayerJuice Juice => _juice;
+    public PlayerDash PlayerDash => _playerDash;
     public bool CanMove => _canMove;
 
     private void Awake()
@@ -50,6 +53,7 @@ public class Player : MonoBehaviour
 
             _playerInput.Player.Move.performed += _playerInput => _movement.MoveInput = _playerInput.ReadValue<Vector2>();
             _playerInput.Player.Jump.performed += _playerJump.Jump;
+            _playerInput.Player.Dash.performed += _playerDash.Dash;
         }
     }
 
@@ -68,5 +72,6 @@ public class Player : MonoBehaviour
         _ground = GetComponent<PlayerGround>();
         _juice = GetComponent<PlayerJuice>();
         _playerJump = GetComponent<PlayerJump>();
+        _playerDash = GetComponent<PlayerDash>();
     }
 }

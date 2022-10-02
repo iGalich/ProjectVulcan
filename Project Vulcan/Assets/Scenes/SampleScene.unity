@@ -137,12 +137,12 @@ GameObject:
   - component: {fileID: 64539689}
   - component: {fileID: 64539691}
   - component: {fileID: 64539697}
-  - component: {fileID: 64539696}
   - component: {fileID: 64539695}
   - component: {fileID: 64539694}
   - component: {fileID: 64539693}
   - component: {fileID: 64539699}
   - component: {fileID: 64539700}
+  - component: {fileID: 64539701}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -384,19 +384,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &64539696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64539682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c27fd209918e24581f2eefd66ce830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canMove: 1
 --- !u!114 &64539697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,11 +518,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4c8ed461-8598-4dbd-a02e-84d57ca12a05
     m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/w,/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e519e08c-0619-4d81-8d08-c27facf6b847
+    m_ActionName: Player/Dash[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Movement
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &64539701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64539682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10267ecae446e0448f9151dc1d35697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dashSpeed: 20
+  _dashTime: 1
+  _dashCooldown: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
