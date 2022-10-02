@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Tarodev {
     public class AutoSaveConfig : ScriptableObject {
         [Tooltip("Enable auto save functionality")]
-        public bool Enabled;
+        public bool Enabled = true;
 
         [Tooltip("The frequency in minutes auto save will activate"), Min(1)]
         public int Frequency = 1;
