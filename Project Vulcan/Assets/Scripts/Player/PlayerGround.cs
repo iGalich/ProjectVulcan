@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerGround : MonoBehaviour
 {
+    public static event Action OnGroundTouch;
+
     private float _friction;
     private bool _onGround;
 
@@ -18,6 +21,11 @@ public class PlayerGround : MonoBehaviour
     private void Update()
     {
         _onGround = Physics2D.Raycast(transform.position + _colliderOffset, Vector2.down, _groundLength, _groundLayer) || Physics2D.Raycast(transform.position - _colliderOffset, Vector2.down, _groundLength, _groundLayer);
+
+        if (_onGround)
+        {
+            OnGroundTouch?.Invoke();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

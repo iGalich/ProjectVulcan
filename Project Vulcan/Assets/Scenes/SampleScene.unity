@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dashSpeed: 20
-  _dashTime: 1
+  _dashTime: 0.2
   _dashCooldown: 1
 --- !u!1 &519420028
 GameObject:
