@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767e922aea6d10045be8fa09648cca6d, type: 3}
+  m_Name: HollowKnight
+  m_EditorClassIdentifier: 
+  _fallGravityMult: 2
+  _maxFallSpeed: 18
+  _fastFallGravityMult: 1
+  _maxFastFallSpeed: 20
+  _maxRunSpeed: 9.5
+  _runAcceleration: 9.5
+  _runDecceleration: 9.5
+  _accelInAir: 1
+  _deccelInAir: 1
+  _doConserveMomentum: 0
+  _jumpHeight: 6.5
+  _jumpTimeToApex: 0.5
+  _jumpCutGravityMult: 3.5
+  _jumpHangGravityMult: 1
+  _jumpHangTimeThreshold: 0
+  _jumpHangAccelerationMult: 1
+  _jumpHangMaxSpeedMult: 1
+  _wallJumpForce: {x: 8.5, y: 20}
+  _wallJumpRunLerp: 0.075
+  _wallJumpTime: 0.3
+  _doTurnOnWallJump: 0
+  _slideSpeed: -12
+  _slideAccel: 12
+  _coyoteTime: 0.2
+  _jumpInputBufferTime: 0.2
+  _dashAmount: 0
+  _dashSpeed: 0
+  _dashSleepTime: 0
+  _dashAttackTime: 0
+  _dashEndTime: 0
+  _dashEndRunLerp: 0
+  _dashRefillTime: 0
+  _dashInputBufferTime: 0
+  _dashEndSpeed: {x: 0, y: 0}

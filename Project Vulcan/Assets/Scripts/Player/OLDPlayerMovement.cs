@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class PlayerMovement : MonoBehaviour
+public class OLDPlayerMovement : MonoBehaviour
 {
     [Header("Movement Stats")]
     [SerializeField, Range(0f, 20f)] [Tooltip("Maximum movement speed")] private float _maxSpeed = 10f;

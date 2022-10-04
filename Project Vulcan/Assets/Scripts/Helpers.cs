@@ -7,6 +7,7 @@ public static class Helpers
     #region GetWait
 
     private static readonly Dictionary<float, WaitForSeconds> WaitDictionary = new Dictionary<float, WaitForSeconds>();
+    private static readonly Dictionary<float, WaitForSecondsRealtime> WaitRealTimeDictionary = new Dictionary<float, WaitForSecondsRealtime>();
 
     /// <summary>
     /// Use instaed of yield return waitforseconds in coroutines to allocate much less garbage
@@ -20,6 +21,15 @@ public static class Helpers
 
         WaitDictionary[time] = new WaitForSeconds(time);
         return WaitDictionary[time];
+    }
+
+    public static WaitForSecondsRealtime GetRealTimeWait(float time)
+    {
+        if (WaitRealTimeDictionary.TryGetValue(time, out var wait))
+            return wait;
+
+        WaitRealTimeDictionary[time] = new WaitForSecondsRealtime(time);
+        return WaitRealTimeDictionary[time];
     }
 
     #endregion

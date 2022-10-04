@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     #region Components
 
     private Rigidbody2D _body;
-    private PlayerMovement _movement;
+    private OLDPlayerMovement _movement;
     private PlayerGround _ground;
     private PlayerJuice _juice;
     private PlayerJump _playerJump;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     public PlayerController PlayerInput => _playerInput;
     public Rigidbody2D Body { get => _body; set => _body = value; }
-    public PlayerMovement Movement => _movement;
+    public OLDPlayerMovement Movement => _movement;
     public PlayerGround Ground => _ground;
     public PlayerJuice Juice => _juice;
     public PlayerDash PlayerDash => _playerDash;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
     private void GetComponents()
     {
         _body = GetComponent<Rigidbody2D>();
-        _movement = GetComponent<PlayerMovement>();
+        _movement = GetComponent<OLDPlayerMovement>();
         _ground = GetComponent<PlayerGround>();
         _juice = GetComponent<PlayerJuice>();
         _playerJump = GetComponent<PlayerJump>();

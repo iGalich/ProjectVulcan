@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767e922aea6d10045be8fa09648cca6d, type: 3}
+  m_Name: Celeste
+  m_EditorClassIdentifier: 
+  _fallGravityMult: 1.5
+  _maxFallSpeed: 25
+  _fastFallGravityMult: 2
+  _maxFastFallSpeed: 30
+  _maxRunSpeed: 11
+  _runAcceleration: 2.5
+  _runDecceleration: 5
+  _accelInAir: 0.65
+  _deccelInAir: 0.65
+  _doConserveMomentum: 1
+  _jumpHeight: 3.5
+  _jumpTimeToApex: 0.3
+  _jumpCutGravityMult: 2
+  _jumpHangGravityMult: 0.5
+  _jumpHangTimeThreshold: 1
+  _jumpHangAccelerationMult: 1.1
+  _jumpHangMaxSpeedMult: 1.3
+  _wallJumpForce: {x: 15, y: 25}
+  _wallJumpRunLerp: 0.5
+  _wallJumpTime: 0.15
+  _doTurnOnWallJump: 0
+  _slideSpeed: 0
+  _slideAccel: 0
+  _coyoteTime: 0.1
+  _jumpInputBufferTime: 0.1
+  _dashAmount: 1
+  _dashSpeed: 20
+  _dashSleepTime: 0.05
+  _dashAttackTime: 0.15
+  _dashEndTime: 0.15
+  _dashEndRunLerp: 0.5
+  _dashRefillTime: 0.1
+  _dashInputBufferTime: 0.1
+  _dashEndSpeed: {x: 15, y: 15}

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767e922aea6d10045be8fa09648cca6d, type: 3}
+  m_Name: MeatBoy
+  m_EditorClassIdentifier: 
+  _fallGravityMult: 2
+  _maxFallSpeed: 20
+  _fastFallGravityMult: 2
+  _maxFastFallSpeed: 20
+  _maxRunSpeed: 25
+  _runAcceleration: 2
+  _runDecceleration: 10
+  _accelInAir: 1
+  _deccelInAir: 0
+  _doConserveMomentum: 1
+  _jumpHeight: 4.5
+  _jumpTimeToApex: 0.45
+  _jumpCutGravityMult: 4
+  _jumpHangGravityMult: 0
+  _jumpHangTimeThreshold: 0
+  _jumpHangAccelerationMult: 0
+  _jumpHangMaxSpeedMult: 0
+  _wallJumpForce: {x: 20, y: 20}
+  _wallJumpRunLerp: 0.75
+  _wallJumpTime: 0.2
+  _doTurnOnWallJump: 1
+  _slideSpeed: -15
+  _slideAccel: 3
+  _coyoteTime: 0.2
+  _jumpInputBufferTime: 0.2
+  _dashAmount: 0
+  _dashSpeed: 0
+  _dashSleepTime: 0
+  _dashAttackTime: 0
+  _dashEndTime: 0
+  _dashEndRunLerp: 0
+  _dashRefillTime: 0
+  _dashInputBufferTime: 0
+  _dashEndSpeed: {x: 0, y: 0}
