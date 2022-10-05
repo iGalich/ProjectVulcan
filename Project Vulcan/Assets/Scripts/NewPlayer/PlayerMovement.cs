@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 	private bool _isWallJumping;
 	private bool _isDashing;
 	private bool _isSliding;
+	private bool _isOnGround;
 
 	// Timers (also all fields, could be private and a method returning a bool could be used)
 	private float _lastTimeOnGround;
@@ -82,11 +83,19 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Layers & Tags")]
 	[SerializeField] private LayerMask _groundLayer;
 
-	#endregion
+    #endregion
 
-	public PlayerData Data { get => _data; set => _data = value; }
+    #region Getters & Setters
 
-	private void Awake()
+    public PlayerData Data { get => _data; set => _data = value; }
+	public Rigidbody2D Body => _body;
+	public bool IsSliding => _isSliding;
+	public bool IsFacingRight => _isFacingRight;
+	public bool IsOnGround => _isOnGround;
+
+    #endregion
+
+    private void Awake()
 	{
 		_body = GetComponent<Rigidbody2D>();
 		_playerAnimator = GetComponent<PlayerAnimator>();
@@ -238,20 +247,24 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	private void CheckOnGround()
+    {
+		if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !_isJumping) //checks if set box overlaps with ground
+		{
+			if (_lastTimeOnGround < -0.1f)
+			{
+				_playerAnimator.JustLanded = true;
+			}
+
+			_lastTimeOnGround = _data.CoyoteTime; //if so sets the lastGrounded to coyoteTime
+		}
+	}
+
 	private void CheckCollisions()
     {
 		if (!_isDashing && !_isJumping)
 		{
-			//Ground Check
-			if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !_isJumping) //checks if set box overlaps with ground
-			{
-				if (_lastTimeOnGround < -0.1f)
-				{
-					_playerAnimator.JustLanded = true;
-				}
-
-				_lastTimeOnGround = _data.CoyoteTime; //if so sets the lastGrounded to coyoteTime
-			}
+			CheckOnGround();
 
 			//Right Wall Check
 			if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && _isFacingRight)
