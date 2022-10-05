@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
 			_playerController.Player.Move.performed += _playerController => _moveInput = _playerController.ReadValue<Vector2>();
 			_playerController.Player.Jump.performed += OnJumpInput;
-			_playerController.Player.Jump.performed += OnJumpUpInput;
+			_playerController.Player.Jump.canceled += OnJumpUpInput;
 			_playerController.Player.Dash.performed += OnDashInput;
 		}
 	}
@@ -369,7 +369,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void JumpChecks()
     {
-		if (_isJumping && _body.velocity.y < 0)
+		if (_isJumping && _body.velocity.y < 0f)
 		{
 			_isJumping = false;
 
@@ -382,7 +382,7 @@ public class PlayerMovement : MonoBehaviour
 			_isWallJumping = false;
 		}
 
-		if (_lastTimeOnGround > 0 && !_isJumping && !_isWallJumping)
+		if (_lastTimeOnGround > 0f && !_isJumping && !_isWallJumping)
 		{
 			_isJumpCut = false;
 
@@ -393,7 +393,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!_isDashing)
 		{
 			//Jump
-			if (CanJump() && _lastTimePressedJump > 0)
+			if (CanJump() && _lastTimePressedJump > 0f)
 			{
 				_isJumping = true;
 				_isWallJumping = false;
@@ -404,7 +404,7 @@ public class PlayerMovement : MonoBehaviour
 				_playerAnimator.StartedJumping = true;
 			}
 			//WALL JUMP
-			else if (CanWallJump() && _lastTimePressedJump > 0)
+			else if (CanWallJump() && _lastTimePressedJump > 0f)
 			{
 				_isWallJumping = true;
 				_isJumping = false;
@@ -412,7 +412,7 @@ public class PlayerMovement : MonoBehaviour
 				_isJumpFalling = false;
 
 				_wallJumpStartTime = Time.time;
-				_lastWallJumpDir = (_lastTimeOnRightWall > 0) ? -1 : 1;
+				_lastWallJumpDir = (_lastTimeOnRightWall > 0f) ? -1 : 1;
 
 				WallJump(_lastWallJumpDir);
 			}
@@ -454,13 +454,13 @@ public class PlayerMovement : MonoBehaviour
 
 	private void PerformWallJump(int dir)
     {
-		Vector2 force = _data.WallJumpForce;
+		Vector2 force = new Vector2(_data.WallJumpForce.x, _data.WallJumpForce.y);
 		force.x *= dir; //apply force in opposite direction of wall
 
 		if (Mathf.Sign(_body.velocity.x) != Mathf.Sign(force.x))
 			force.x -= _body.velocity.x;
 
-		if (_body.velocity.y < 0) //checks whether player is falling, if so we subtract the velocity.y (counteracting force of gravity). This ensures the player always reaches our desired jump force or greater
+		if (_body.velocity.y < 0f) //checks whether player is falling, if so we subtract the velocity.y (counteracting force of gravity). This ensures the player always reaches our desired jump force or greater
 			force.y -= _body.velocity.y;
 
 		//Unlike in the run we want to use the Impulse mode.
